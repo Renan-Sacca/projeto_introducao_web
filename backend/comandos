@@ -1,0 +1,9 @@
+para rodar
+php artisan serve
+
+mudanças 
+php artisan migrate
+
+
+
+ npm run serve
