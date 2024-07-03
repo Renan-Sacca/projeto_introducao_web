@@ -9,10 +9,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    // database/migrations/xxxx_xx_xx_create_pacientes_table.php
-    public function up()
+    public function up(): void
     {
-        Schema::create('pacientes', function (Blueprint $table) {
+        Schema::create('Pacientes', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->date('data_nascimento');
@@ -23,12 +22,11 @@ return new class extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('pacientes');
+        Schema::dropIfExists('Pacientes');
     }
 };

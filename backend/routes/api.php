@@ -1,7 +1,14 @@
 <?php
 
-use app\Http\Controllers\PacienteController;
-use app\Http\Controllers\ConsultaController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\PacientesController;
+use App\Http\Controllers\API\ConsultasController;
 
-Route::apiResource('pacientes', PacienteController::class);
-Route::apiResource('consultas', ConsultaController::class);
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+
+
+Route::apiResource("/pacientes", PacientesController::class );
+Route::apiResource("/consultas", ConsultasController::class );
