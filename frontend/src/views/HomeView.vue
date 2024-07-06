@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import TaskDataService from '../services/TaskDataService';
+import TaskDataService from '../services/PacienteConsultaDataService';
 
 export default {
   name: 'HomeView',

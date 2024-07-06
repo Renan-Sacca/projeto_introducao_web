@@ -1,53 +1,60 @@
 <template>
     <div>
-        <h4>Criar nova Consulta</h4>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="paciente_id">Paciente ID</label>
-                <input type="text" class="form-control" id="paciente_id" name="paciente_id" v-model="consulta.paciente_id" required>
-            </div>
-            <div class="form-group">
-                <label for="data_hora">Data e Hora</label>
-                <input type="datetime-local" class="form-control" id="data_hora" name="data_hora" v-model="consulta.data_hora" required>
-            </div>
-
-            <button class="btn btn-success mt-3" @click="saveConsulta">Criar</button>
+      <h4>Criar nova consulta</h4>
+  
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="paciente_nome">Nome do Paciente</label>
+          <input type="text" class="form-control" id="paciente_nome" name="paciente_nome" v-model="consulta.paciente_nome" required>
         </div>
+        <div class="form-group">
+          <label for="data_consulta">Data da Consulta</label>
+          <input type="date" class="form-control" id="data_consulta" name="data_consulta" v-model="consulta.data_consulta" required>
+        </div>
+        <div class="form-group">
+          <label for="descricao">Descrição</label>
+          <input type="text" class="form-control" id="descricao" name="descricao" v-model="consulta.descricao" required>
+        </div>
+  
+        <button class="btn btn-success mt-3" @click="saveConsulta">Criar</button>
+      </div>
     </div>
-</template>
-
-<script>
-import TaskDataService from '../services/TaskDataService';
-
-export default {
-    name: "consulta-new",
+  </template>
+  
+  <script>
+  import { ConsultaDataService } from '../services/PacienteConsultaDataService';
+  
+  export default {
+    name: "consultas-new",
     data() {
-        return {
-            consulta: {
-                id: null,
-                paciente_id: "",
-                data_hora: ""
-            }
-        };
+      return {
+        consulta: {
+          id: null,
+          paciente_nome: "",
+          data_consulta: "",
+          descricao: ""
+        }
+      };
     },
     methods: {
-        saveConsulta() {
-            var data = {
-                paciente_id: this.consulta.paciente_id,
-                data_hora: this.consulta.data_hora
-            };
-
-            TaskDataService.createConsulta(data)
-            .then(response => {
-                this.consulta.id = response.data.data.id;
-                console.log(response.data);
-                window.location.href = '/';
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        }
+      saveConsulta() {
+        var data = {
+          paciente_nome: this.consulta.paciente_nome,
+          data_consulta: this.consulta.data_consulta,
+          descricao: this.consulta.descricao
+        };
+  
+        const consultaService = new ConsultaDataService();
+        consultaService.create(data)
+          .then(response => {
+            console.log(response.data);
+            this.$router.push('/consultas')
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
     }
-}
-</script>
+  }
+  </script>
+  

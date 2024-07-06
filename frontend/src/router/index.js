@@ -1,33 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
+import PacientesView from '../views/PacientesView.vue'
 import AddPacienteView from '../views/AddPacienteView.vue'
+import ConsultasView from '../views/ConsultasView.vue'
 import AddConsultaView from '../views/AddConsultaView.vue'
+import EditPacienteView from '../views/EditPacienteView.vue';
+
+const routes = [
+  { path: '/', redirect: '/pacientes' },
+  { path: '/pacientes', name: 'pacientes', component: PacientesView },
+  { path: '/pacientes/new', name: 'new-paciente', component: AddPacienteView },
+  {
+    path: '/pacientes/edit/:id',
+    name: 'pacientes-edit',
+    component: EditPacienteView
+  },
+  { path: '/consultas', name: 'consultas', component: ConsultasView },
+  { path: '/consultas/new', name: 'new-consulta', component: AddConsultaView }
+]
 
 const router = createRouter({
-  history: createWebHistory(""),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/new-paciente',
-      name: 'new-paciente',
-      component: AddPacienteView
-    },
-    {
-      path: '/new-consulta',
-      name: 'new-consulta',
-      component: AddConsultaView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: AboutView
-    }
-  ]
+  history: createWebHistory(),
+  routes
 })
 
 export default router

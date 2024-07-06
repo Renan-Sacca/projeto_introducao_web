@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h4>Criar novo paciente</h4>
+      <h4>Editar paciente</h4>
   
       <div class="col-md-6">
         <div class="form-group">
@@ -24,7 +24,7 @@
           <input type="email" class="form-control" id="email" name="email" v-model="paciente.email" required>
         </div>
   
-        <button class="btn btn-success mt-3" @click="savePaciente">Criar</button>
+        <button class="btn btn-success mt-3" @click="updatePaciente">Atualizar</button>
       </div>
     </div>
   </template>
@@ -33,7 +33,7 @@
   import { PacienteDataService } from '../services/PacienteConsultaDataService';
   
   export default {
-    name: "pacientes-new",
+    name: "pacientes-edit",
     data() {
       return {
         paciente: {
@@ -47,25 +47,30 @@
       };
     },
     methods: {
-      savePaciente() {
-        var data = {
-          nome: this.paciente.nome,
-          data_nascimento: this.paciente.data_nascimento,
-          endereco: this.paciente.endereco,
-          telefone: this.paciente.telefone,
-          email: this.paciente.email
-        };
-  
+      getPaciente(id) {
         const pacienteService = new PacienteDataService();
-        pacienteService.create(data)
+        pacienteService.get(id)
+          .then(response => {
+            this.paciente = response.data.data; // Corrigir a atribuição do objeto paciente
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      },
+      updatePaciente() {
+        const pacienteService = new PacienteDataService();
+        pacienteService.update(this.paciente.id, this.paciente)
           .then(response => {
             console.log(response.data);
-            this.$router.push('/pacientes')
+            this.$router.push('/pacientes');
           })
           .catch(e => {
             console.log(e);
           });
       }
+    },
+    mounted() {
+      this.getPaciente(this.$route.params.id);
     }
   }
   </script>
