@@ -30,7 +30,7 @@
   </template>
   
   <script>
-  import { PacienteDataService } from '../services/PacienteConsultaDataService';
+  import { PacienteDataService } from '../services/PacienteDataService';
   
   export default {
     name: "pacientes-edit",
@@ -51,7 +51,7 @@
         const pacienteService = new PacienteDataService();
         pacienteService.get(id)
           .then(response => {
-            this.paciente = response.data.data; // Corrigir a atribuição do objeto paciente
+            this.paciente = response.data.data; 
           })
           .catch(e => {
             console.log(e);

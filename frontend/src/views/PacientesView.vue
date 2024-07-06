@@ -26,7 +26,7 @@
   </template>
   
   <script>
-  import { PacienteDataService } from '../services/PacienteConsultaDataService';
+  import { PacienteDataService } from '../services/PacienteDataService';
   
   export default {
     name: "pacientes-list",
